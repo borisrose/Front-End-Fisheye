@@ -14,19 +14,19 @@ if(photographerPath.searchParams.has('id')){
         const response = await fetch('../../data/photographers.json');
 
         const data = await response.json();
-        console.log('data', data);
+     
         //data on photographers
         const photographers = data.photographers
-        console.log(photographers);
+     
         //////data on THE PHOTOGRAPHER
         const photographer = photographers.filter(p => p.id == photographerID)[0];
-        console.log('photographer', photographer);
+
         //data on  MEDIAS
         const medias = data.media;
         /////// data on THE MEDIAS
-        console.log('medias', medias)
+       
         let photographerMedia = medias.filter(m => m.photographerId == photographerID)
-        console.log('photographerMedia', photographerMedia);
+
         ////
         return({
             photographer, photographerMedia
@@ -36,7 +36,7 @@ if(photographerPath.searchParams.has('id')){
 
     async function displayPhotographerInfo(photographer) {
 
-        console.log('into displayPhotographerInfo');
+   
 
 
         const photographHeader = document.querySelector('.photograph-header');
@@ -60,13 +60,104 @@ if(photographerPath.searchParams.has('id')){
        
     };
 
+
+    async function displaySortingMenu(photographerMedia, photographer){
+
+        const sortingSection = document.querySelector('.sorting-section');
+        const newLabel = document.createElement('label');
+        newLabel.for = 'sorting-choice';
+        newLabel.innerText = 'Trier par ';
+        const newSelect = document.createElement('select');
+        newSelect.labelledby = "Order by";
+        newSelect.id = "sorting-choice";
+        const popularityOption = document.createElement('option');
+        popularityOption.value = "popularity";
+        popularityOption.innerText = "Popularité";
+        const dateOption = document.createElement('option');
+        dateOption.value = "date";
+        dateOption.setAttribute('selected', true);
+        dateOption.innerText = "Date";
+        const titleOption = document.createElement('option');
+        titleOption.value = "title";
+        titleOption.innerText = "Titre";
+
+        newSelect.addEventListener('change', (e)=> {
+
+            let sortedMedia = []
+            if(e.target.value === "date"){
+           
+                const dateSortedMedia = photographerMedia.sort((a,b) => {
+                    
+                    let stringYearA = a.date.split('-')[0];
+                    let stringMonthA = a.date.split('-')[1];
+                    let stringDayA = a.date.split('-')[2];
+
+                    let intYearA = parseInt(stringYearA, 10);
+                    let intMonthA = parseInt(stringMonthA, 10);
+                    let intDayA= parseInt(stringDayA, 10);
+
+                    let stringYearB = b.date.split('-')[0];
+                    let stringMonthB = b.date.split('-')[1];
+                    let stringDayB = b.date.split('-')[2];
+              
+                    let intYearB = parseInt(stringYearB, 10);
+                    let intMonthB = parseInt(stringMonthB, 10);
+                    let intDayB = parseInt(stringDayB, 10);
+                    
+                    if(intYearA !== intYearB){
+                        return intYearA - intYearB;
+                    }
+                    else {
+                        if(intMonthA !== intMonthB){
+                            return intMonthA - intMonthB;
+                        }
+                        else {
+                            return intDayA - intDayB;
+                        }
+
+                    }
+
+                })
+
+                console.log('dateSortedMedia', dateSortedMedia)
+                sortedMedia = dateSortedMedia;
+            }
+
+            if(e.target.value === "popularity"){
+                const popularitySortedMedia = photographerMedia.sort((a,b) => {
+                    return a.likes - b.likes
+                })
+                sortedMedia = popularitySortedMedia;
+            }
+
+            if(e.target.value === "title"){
+                const titleSortedMedia = photographerMedia.sort((a,b) => {    
+                    return b.title - a.title;
+                })
+                console.log('titleSortedMedia', titleSortedMedia);
+                sortedMedia = titleSortedMedia;
+            }
+            const mediaSection = document.querySelector(".media-section");
+            mediaSection.innerHTML = "";
+            displayMedia(sortedMedia, photographer);   
+        })
+
+
+        newSelect.appendChild(popularityOption);
+        newSelect.appendChild(dateOption);
+        newSelect.appendChild(titleOption);
+
+
+        sortingSection.appendChild(newLabel);
+        sortingSection.appendChild(newSelect);
+    }
+
     async function displayPriceLikeBanner(photographerMedia, photographer){
         let totalLikes = 0;
         photographerMedia.forEach((media) => {
             totalLikes += media.likes
         })
 
-        console.log(totalLikes);
 
         const main = document.querySelector('#main');
         const priceLikesDiv = document.createElement('div');
@@ -106,9 +197,16 @@ if(photographerPath.searchParams.has('id')){
 
         const { photographer, photographerMedia } = await getPhotographerInfoAndMedia();
         displayPriceLikeBanner(photographerMedia, photographer);
-        displayMedia(photographerMedia, photographer);
-    
+        displaySortingMenu(photographerMedia, photographer)
+        displayMedia(photographerMedia, photographer);          
         displayPhotographerInfo(photographer);
+               
+            
+         
+     
+   
+    
+      
 
     }
 

@@ -1,4 +1,10 @@
 
+
+.sorting-section {
+    border: solid black 3px;
+    padding: 20px;
+}
+
 .price-likes-div {
     border-radius: 5px 5px 0 0;
     position: fixed;
@@ -14,6 +20,7 @@
     justify-content: space-evenly;
 
 }
+
 
 .banner-price-div, .banner-likes-div{
     display: flex;
