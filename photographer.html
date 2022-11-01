@@ -37,16 +37,32 @@
     </main>
     <div id="contact_modal">
 			<div class="modal">
-				<header>
+				<header class="contact-header">
           <h2>Contactez-moi</h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
-				<form>
+				<form action="photographer.js" method="post">
 					<div>
-						<label>Prénom</label>
-						<input />
+						<label for="firstname">Prénom</label>
+						<input id="firstname" name="firnstame" placeholder="Entrez votre prénom ici"/>
+            <p class="error-message"></p>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <div>
+						<label for="lastname">Nom</label>
+						<input id="lastname" name="lastname" placeholder="Entrez votre nom ici"/>
+            <p class="error-message"></p>
+					</div>
+          <div>
+						<label for="email">Email</label>
+						<input id="email" name="email" placeholder="Entrez votre email ici"/>
+            <p class="error-message"></p>
+					</div>
+          <div>
+						<label for="message">Votre message</label>
+						<textarea id="message" name="message" placeholder="Entrez votre message ici"></textarea>
+            <p class="error-message"></p>
+					</div>
+          <button type="submit" class="contact_button" id="contact-button" >Envoyer</button>
 				</form>
 			</div>
 		</div>

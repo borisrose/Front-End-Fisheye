@@ -6,7 +6,7 @@ body {
 }
 
 
-header {
+body header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -77,17 +77,10 @@ a:-webkit-any-link {
 
 .photographer_section article img {
    
-    
-
     border-radius: 75px;
     object-fit:cover;
-  
-    
- 
     position: absolute;
     z-index: -1;
-
-
 
 }
 
@@ -110,7 +103,6 @@ a:-webkit-any-link {
     align-items: center;
     width: 100%;
     height: 20%;
-
     
 }
 

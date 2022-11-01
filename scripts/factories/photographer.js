@@ -1,16 +1,16 @@
 function photographerFactory(data) {
-    console.log('data', data);
+   
     const { name, portrait } = data;
    
 
     const picture = `assets/photographers/${portrait}`;
 
-    console.log('picture', picture);
+
 
 
     function getPhotographerInfo(){
 
-        console.log('into getPhotographerInfo');
+
         //photographer info article 
         const photographerInfoArticle = document.createElement('article');
         const namePara = document.createElement('h1');
@@ -19,11 +19,17 @@ function photographerFactory(data) {
         placePara.innerText =  data.city + ', '+data.country;
         const taglinePara = document.createElement('p');
         taglinePara.innerText = data.tagline;
+        //photographer contact article 
+     
+     
+
+
+
 
         //photographer photo article 
         const photographerPhotoArticle = document.createElement('article');
         const photographerImg = document.createElement('img');
-        console.log('just before src = portrait');
+
         photographerImg.setAttribute('src', picture);
         photographerImg.setAttribute('alt', '');
         //class addings
@@ -50,7 +56,7 @@ function photographerFactory(data) {
 
     function redimensionPhoto(img){
         if(portrait.startsWith('Ellie')) {
-            console.log('picture Ellie', picture);
+       
             img.style.transform= 'scale(0.1) translateX(2%) translateY(10%)';
         }
         if(portrait.startsWith('Mimi')){

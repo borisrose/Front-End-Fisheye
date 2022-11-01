@@ -1,15 +1,13 @@
 function mediaFactory(media, author) {
-    console.log('data', media);
-    console.log('on entre dans la fonction mediaFactory');
+  
     authorFirstname = author.name.split(' ')[0];
     if(Array.from(authorFirstname).find(l => l === '-')){
         authorFirstname = authorFirstname.split('-').join(' ');
     }
 
-    console.log(authorFirstname);
+
 
     const totalLikes = document.querySelector('.totalLikes')
-    console.log('totalLikes', totalLikes);
 
     function modifyNumberLikes(e){
      
@@ -17,14 +15,14 @@ function mediaFactory(media, author) {
       
             e.target.classList.remove('added-like');
             media.likes--;
-            console.log('VALUE',totalLikes.innerText)
+  
             totalLikes.innerText--;
            
         }
         else {
             e.target.classList.add('added-like');
             media.likes++;
-            console.log('VALUE',totalLikes.innerText)
+
             totalLikes.innerText++;
            
         }

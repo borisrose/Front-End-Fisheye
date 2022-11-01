@@ -4,9 +4,8 @@
 let url = document.URL;
 let photographerPath = new URL(url);
 if(photographerPath.searchParams.has('id')){
-
-    let photographerID = photographerPath.searchParams.get('id');
-    console.log('photographerID', photographerID);
+let photographerID = photographerPath.searchParams.get('id');
+let isSelectedOption = false
 
 
     async function getPhotographerInfoAndMedia(){
@@ -46,12 +45,14 @@ if(photographerPath.searchParams.has('id')){
        const photographModel = photographerFactory(photographer);
        const {photographerInfoArticle, photographerPhotoArticle } = photographModel.getPhotographerInfo();
        const contactButton = document.querySelector('.contact_button');
-
+       const photographerContactArticle = document.createElement('article');
+       photographerContactArticle.classList.add('contact-article')
        photographHeader.innerHTML = '';
-
+        
+       photographerContactArticle.append(contactButton);
        //appending
        photographHeader.appendChild(photographerInfoArticle);
-       photographHeader.appendChild(contactButton);
+       photographHeader.appendChild(photographerContactArticle);
        photographHeader.appendChild(photographerPhotoArticle);
 
        
@@ -60,30 +61,53 @@ if(photographerPath.searchParams.has('id')){
        
     };
 
+    async function displayContactModal(photographer){
+        const modalDiv = document.querySelector('.modal');
+        const contactHeader = modalDiv.firstChild.nextSibling.firstChild.nextSibling  
+        contactHeader.innerHTML += '<br/>' + photographer.name; 
+    }
 
     async function displaySortingMenu(photographerMedia, photographer){
 
         const sortingSection = document.querySelector('.sorting-section');
         const newLabel = document.createElement('label');
         newLabel.for = 'sorting-choice';
-        newLabel.innerText = 'Trier par ';
+        newLabel.innerHTML = '<b>'+'Trier par '+'</b>';
         const newSelect = document.createElement('select');
         newSelect.labelledby = "Order by";
         newSelect.id = "sorting-choice";
         const popularityOption = document.createElement('option');
         popularityOption.value = "popularity";
         popularityOption.innerText = "Popularité";
+        popularityOption.setAttribute('selected', true);
+        console.log('get 1',  popularityOption.getAttribute('selected'));
+        
+        //making sure that at the very beginning the selected option which is popularity produces a proper sorting
+        if (popularityOption.getAttribute('selected')){
+     
+            const popularitySortedMedia = photographerMedia.sort((a,b) => {
+                return a.likes - b.likes;
+            });
+            const mediaSection = document.querySelector(".media-section");
+            mediaSection.innerHTML = "";
+            displayMedia(popularitySortedMedia, photographer); 
+            isSelectedOption = true
+
+        }
         const dateOption = document.createElement('option');
         dateOption.value = "date";
-        dateOption.setAttribute('selected', true);
+
         dateOption.innerText = "Date";
         const titleOption = document.createElement('option');
         titleOption.value = "title";
         titleOption.innerText = "Titre";
 
+        //placing a listener on the change event to know what option the user took on sorting media 
         newSelect.addEventListener('change', (e)=> {
 
             let sortedMedia = []
+
+            //sorting by date
             if(e.target.value === "date"){
            
                 const dateSortedMedia = photographerMedia.sort((a,b) => {
@@ -119,22 +143,22 @@ if(photographerPath.searchParams.has('id')){
 
                 })
 
-                console.log('dateSortedMedia', dateSortedMedia)
+  
                 sortedMedia = dateSortedMedia;
             }
-
+            //sorting by popularity
             if(e.target.value === "popularity"){
                 const popularitySortedMedia = photographerMedia.sort((a,b) => {
                     return a.likes - b.likes
                 })
                 sortedMedia = popularitySortedMedia;
             }
-
+            //sorting by title
             if(e.target.value === "title"){
-                const titleSortedMedia = photographerMedia.sort((a,b) => {    
-                    return b.title - a.title;
-                })
-                console.log('titleSortedMedia', titleSortedMedia);
+                const titleSortedMedia = photographerMedia.sort(
+                    (a, b) => a.title.localeCompare(b.title)
+                )
+            
                 sortedMedia = titleSortedMedia;
             }
             const mediaSection = document.querySelector(".media-section");
@@ -197,17 +221,14 @@ if(photographerPath.searchParams.has('id')){
 
         const { photographer, photographerMedia } = await getPhotographerInfoAndMedia();
         displayPriceLikeBanner(photographerMedia, photographer);
+        displayContactModal(photographer);
         displaySortingMenu(photographerMedia, photographer)
-        displayMedia(photographerMedia, photographer);          
+        if(!isSelectedOption){
+            displayMedia(photographerMedia, photographer);    
+        }
         displayPhotographerInfo(photographer);
                
-            
-         
-     
-   
-    
-      
-
+        
     }
 
     init();
