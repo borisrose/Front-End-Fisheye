@@ -1,12 +1,15 @@
+
+
 function displayModal() {
     const modal = document.getElementById("contact_modal");
     const submitButton = document.getElementById('contact-button');
+    const modalForm = document.getElementById('modal-form');
     submitButton.setAttribute('disabled', true)
     submitButton.classList.add('forbidden-submit');
+
 	modal.style.display = "flex";
 
     class Input {
-
 
         constructor(domEl,pattern, errorMessage, isValid){
 
@@ -16,7 +19,6 @@ function displayModal() {
             this.isValid = false;
 
         };
-
 
         displayErrorMessage = (specificErrorMessage, valid) => {
            
@@ -49,36 +51,65 @@ function displayModal() {
            
         }
 
-        formChecker = (inputsArray) => {
+        allowFormSubmit = (inputsArray, isAllowed, modalForm) => {
+
+            console.log('into allowFormSubmit');
+            if(isAllowed === true){
+                console.log('isAllowed === true');
+                modalForm.addEventListener('submit', (e)=> {
+                    
+                    e.preventDefault();
+                    console.log({
+                        prenom: inputsArray[0].domEl.value,
+                        nom: inputsArray[1].domEl.value,
+                        email: inputsArray[2].domEl.value,
+                        message: inputsArray[3].domEl.value,
+
+                    })
+                   
+
+                })
+            }
+        
+
+
+        }
+
+        formChecker = (inputsArray, modalForm) => {
             if(inputsArray.find(input => input.isValid === false)){
                 submitButton.setAttribute('disabled', true)
                 if(Array.from(submitButton.classList).find(c => c === 'allowed-submit')){
                     submitButton.classList.remove('allowed-submit');
+                    
                 }
                 if(!Array.from(submitButton.classList).find(c => c === 'forbidden-submit')){
                     submitButton.classList.add('forbidden-submit');
+                    
                 }
-       
+            
             }
             else {
-                submitButton.setAttribute('disabled', false) 
+                submitButton.removeAttribute('disabled') 
                 if(!Array.from(submitButton.classList).find(c => c === 'allowed-submit')){
                     submitButton.classList.add('allowed-submit');
+
                 }
                 if(Array.from(submitButton.classList).find(c => c === 'forbidden-submit')){
                     submitButton.classList.remove('forbidden-submit');
                 }
+                let isAllowed = true
+                this.allowFormSubmit(inputsArray, isAllowed, modalForm);
             }
         }
 
-        patternChecker = (inputsArray) => {
+        patternChecker = (inputsArray, modalForm) => {
             this.domEl.addEventListener('change', (e)=> {
                 let valid = this.pattern.test(e.target.value)
                 if(valid){  
                     this.displayColorMessage(valid)
                     this.displayErrorMessage("", valid);
                     this.isValid = true
-                    this.formChecker(inputsArray);
+                    this.formChecker(inputsArray, modalForm);
        
                 } else {
                     if( (this.domEl.id === 'lastname' || this.domEl.id === 'firstname') && e.target.value.length < 2 && e.target.value.length > 0){
@@ -92,12 +123,11 @@ function displayModal() {
                     }
                     this.displayColorMessage(valid)
                     this.isValid = false
-                    this.formChecker(inputsArray);
+                    this.formChecker(inputsArray, modalForm);
                 }
              
             })
         }
-
 
     }
 
@@ -150,15 +180,14 @@ function displayModal() {
 
     for(let input of inputsArray){
    
-        input.patternChecker(inputsArray);
+        input.patternChecker(inputsArray, modalForm);
     
 
     }
 
+  
  
-    
 
- 
 }
 
 function closeModal() {
