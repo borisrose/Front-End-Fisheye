@@ -1,4 +1,4 @@
-function mediaFactory(media, author) {
+function mediaFactory(photographerMedia, media, author) {
   
     authorFirstname = author.name.split(' ')[0];
     if(Array.from(authorFirstname).find(l => l === '-')){
@@ -49,6 +49,11 @@ function mediaFactory(media, author) {
 
             mediaArticle.appendChild(mediaArticleImgDiv);
             mediaArticleImgDiv.appendChild(mediaArticleImg);
+       
+            mediaArticleImgDiv.addEventListener('click', ()=> {
+                console.log('event click');
+                displayLightBox(photographerMedia,media, author);
+            })
 
         }
         else {
@@ -60,6 +65,11 @@ function mediaFactory(media, author) {
 
             mediaArticle.appendChild(mediaArticleVideoDiv);
             mediaArticleVideoDiv.appendChild(mediaArticleVideo);
+
+            mediaArticleVideoDiv.addEventListener('click', ()=> {
+                console.log('event click');
+                displayLightBox(photographerMedia,media, author);
+            })
         }
        
         //

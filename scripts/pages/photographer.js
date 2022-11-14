@@ -211,7 +211,7 @@ let isSelectedOption = false
         const mediaSection = document.querySelector(".media-section");
 
         photographerMedia.forEach((media) => {
-            const mediaModel = mediaFactory(media, photographer);
+            const mediaModel = mediaFactory(photographerMedia,media, photographer);
             const mediaCardDOM = mediaModel.getMediaCardDOM();
             mediaSection.appendChild(mediaCardDOM);
         });
