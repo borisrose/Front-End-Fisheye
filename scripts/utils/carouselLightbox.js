@@ -1,7 +1,15 @@
 
 async function displayLightBox(photographerMedia, media, author){
     const carouselModal = document.querySelector('#carousel_modal');
+  
+    const main = document.getElementById('main');
+
+    //handling accessibility issues
+    carouselModal.setAttribute('aria-hidden', false);
+    main.setAttribute('aria-hidden', true);
     carouselModal.setAttribute('role', 'dialog');
+
+
     const mediaDiv = document.querySelector('.carousel-media-div');
     const rightArrow = document.querySelector('.fa-arrow-right')
     const leftArrow = document.querySelector('.fa-arrow-left');
@@ -255,14 +263,22 @@ async function displayLightBox(photographerMedia, media, author){
 }
 
 function closeLightBox() {
-    const modal = document.getElementById("carousel_modal");
-    modal.style.display = "none";
+    const carouselModal = document.getElementById("carousel_modal");
+ 
+    const main = document.getElementById('main');
+
+    //handling accessibility issues
+    carouselModal.setAttribute('aria-hidden', true);
+    main.setAttribute('aria-hidden', false);
+
+
+    carouselModal.style.display = "none";
     const mediaDiv = document.querySelector('.carousel-media-div');
     mediaDiv.innerHTML = "";
     const rightArrow = document.querySelector('.fa-arrow-right');
     const leftArrow = document.querySelector('.fa-arrow-left');
-    leftArrow.removeEventListener('click', function(){arrowCallBack('left', currentIndex, media, photographerMedia)});
-    rightArrow.removeEventListener('click', function(){arrowCallBack('right', currentIndex, media, photographerMedia)});
+    leftArrow.onclick="";
+    rightArrow.onclick="";
 
    
 }

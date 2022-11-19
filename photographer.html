@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr-FR" dir="ltr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -10,9 +10,9 @@
   </head>
   <body>
     <header>
-      <a href="./index.html"><img src="assets/images/logo.png" class="logo" /></a>
+      <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="logo"/></a>
     </header>
-    <main id="main">
+    <main id="main" aria-hidden="false">
       <div class="photograph-header">
 
       
@@ -35,56 +35,56 @@
 
 
     </main>
-    <div id="contact_modal">
-			<div class="modal">
+    <div id="contact_modal" aria-hidden="true" aria-label="écran du formulaire de contact">
+			<div class="modal" aria-label="formulaire de contact">
 				<header class="contact-header">
           <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
+          <img src="assets/icons/close.svg" alt="close icon" onclick="closeModal()" />
         </header>
 				<form id="modal-form">
-					<div>
+					<div aria-label="partie du formulaire concernant le prénom">
 						<label for="firstname">Prénom</label>
-						<input id="firstname" name="firnstame" placeholder="Entrez votre prénom ici"/>
-            <p class="error-message"></p>
-					</div>
-          <div>
+						<input id="firstname" name="firstame" placeholder="Entrez votre prénom ici" aria-labelledby="firstname" aria-describedby="firstname"/>
+            <p class="error-message" aria-label="message d'erreur"></p>
+					</div aria-label="partie du formulaire concernant le nom">
+          <div aria-label="partie du formulaire concernant le nom">
 						<label for="lastname">Nom</label>
-						<input id="lastname" name="lastname" placeholder="Entrez votre nom ici"/>
+						<input id="lastname" name="lastname" placeholder="Entrez votre nom ici" aria-labelledby="lastname" aria-describedby="lastname"/>
             <p class="error-message"></p>
 					</div>
-          <div>
+          <div aria-label="partie du formulaire concernant l'email">
 						<label for="email">Email</label>
-						<input id="email" name="email" placeholder="Entrez votre email ici"/>
-            <p class="error-message"></p>
+						<input id="email" name="email" placeholder="Entrez votre email ici" aria-labelledby="email" aria-describedby="email"/>
+            <p class="error-message" aria-label="message d'erreur"></p>
 					</div>
-          <div>
+          <div aria-label="partie du formulaire concernant le message">
 						<label for="message">Votre message</label>
-						<textarea id="message" name="message" placeholder="Entrez votre message ici"></textarea>
-            <p class="error-message"></p>
+						<textarea id="message" name="message" placeholder="Entrez votre message ici" aria-labelledby="message" aria-describedby="message"></textarea>
+            <p class="error-message" aria-label="message d'erreur"></p>
 					</div>
           <button type="submit" class="contact_button" id="contact-button" >Envoyer</button>
 				</form>
 			</div>
 		</div>
 
-    <div id="carousel_modal">
-      <div class="carousel-lightbox-modal">
+    <div id="carousel_modal" aria-hidden="true" aria-label="écran du carrousel">
+      <div class="carousel-lightbox-modal" aria-label="carrousel">
         <header class="carousel-header">
           <h2>Galerie</h2>
-          <img src="assets/icons/close.svg" onclick="closeLightBox()" />
+          <img src="assets/icons/close.svg" alt="close icon" onclick="closeLightBox()" />
         </header>
      
-        <div class="carousel-slides-box">
+        <div class="carousel-slides-box" aria-label="les photos et vidéos de l'artiste avec les flèches directionnelles ">
 
-          <div class="arrow-left-div" ><i class="fas fa-arrow-left"></i></div>
+          <div class="arrow-left-div" aria-label="flèche de gauche"><i class="fas fa-arrow-left" aria-label="left arrow"></i></div>
 
 
-          <div class="carousel-media-div">
+          <div class="carousel-media-div" aria-label="les photos et videos de l'artiste">
 
           </div>
       
 
-          <div class="arrow-right-div"><i class="fas fa-arrow-right"></i></div>
+          <div class="arrow-right-div" aria-label="flèche de droite"><i class="fas fa-arrow-right" aria-label="right arrow"></i></div>
         </div>
       </div>
     </div>

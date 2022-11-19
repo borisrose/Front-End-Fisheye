@@ -2,6 +2,15 @@
 
 function displayModal() {
     const modal = document.getElementById("contact_modal");
+
+    const main  = document.getElementById('main');
+
+    //accessibily instructions 
+   
+    main.setAttribute('aria-hidden', true);
+    modal.setAttribute('aria-hidden', false);
+    //end of accessibility instructions 
+
     const submitButton = document.getElementById('contact-button');
     const modalForm = document.getElementById('modal-form');
     submitButton.setAttribute('disabled', true)
@@ -193,6 +202,12 @@ function displayModal() {
 function closeModal() {
     const modal = document.getElementById("contact_modal");
     modal.style.display = "none";
+    const main  = document.getElementById('main');
+
+    //accessibily instructions 
+    main.setAttribute('aria-hidden', false);
+    modal.setAttribute('aria-hidden', true);
+    //end of accessibility instructions 
 
     let firstname = document.getElementById('firstname');
     let lastname = document.getElementById('lastname');
