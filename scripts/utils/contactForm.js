@@ -1,4 +1,16 @@
+document.addEventListener('DOMContentLoaded', ()=> {
 
+    const modal = document.getElementById("contact_modal");
+    document.addEventListener('keydown', e=> {
+                
+        if(modal.getAttribute('aria-hidden') == 'false' && e.code == 'Escape'){
+
+          
+            closeModal()
+        }
+    })
+
+})
 
 function displayModal() {
     const modal = document.getElementById("contact_modal");

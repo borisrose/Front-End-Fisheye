@@ -10,81 +10,83 @@
   </head>
   <body>
     <header>
-      <a href="./index.html"><img src="assets/images/logo.png" class="logo" alt="logo"/></a>
+      <a href="./index.html" aria-label="Fisheye Home page" ><img src="assets/images/logo.png" class="logo" alt="logo"/></a>
     </header>
     <main id="main" aria-hidden="false">
-      <div class="photograph-header">
+      <header class="photograph-header" aria-label="photograph-header">
 
       
 
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" onclick="displayModal()" role="button">Contactez-moi</button>
 
      
 
-      </div>
-      <div class="sorting-section">
+      </header>
+      <section class="sorting-section" aria-label="sorting media section">
 
 
-      </div>
-      <div class="media-section">
+      </section>
+      <section class="media-section" aria-label="media-section" >
 
 
-      </div>
+      </section>
      
      
 
 
     </main>
-    <div id="contact_modal" aria-hidden="true" aria-label="écran du formulaire de contact">
-			<div class="modal" aria-label="formulaire de contact">
+    <div id="contact_modal" aria-hidden="true" aria-label="form-contact-screen" role="dialog" aria-labelledby="heading" aria-modal="true">
+			<div class="modal" aria-label="contact-form">
 				<header class="contact-header">
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" alt="close icon" onclick="closeModal()" />
+          <h1 id="heading">Contactez-moi</h1>
+          <span class="close-btn-span"  role="button" aria-label="Close Contact form" aria-roledescription="Close Contact form">
+            <img class="close-btn-span" src="assets/icons/close.svg" alt="close icon" onclick="closeModal()" role="button" />
+          </span>
+         
         </header>
 				<form id="modal-form">
-					<div aria-label="partie du formulaire concernant le prénom">
+					<div aria-label="form-part-about-firstname">
 						<label for="firstname">Prénom</label>
-						<input id="firstname" name="firstame" placeholder="Entrez votre prénom ici" aria-labelledby="firstname" aria-describedby="firstname"/>
+						<input id="firstname" name="firstame" placeholder="Entrez votre prénom ici" aria-labelledby="firstname" />
             <p class="error-message" aria-label="message d'erreur"></p>
 					</div aria-label="partie du formulaire concernant le nom">
-          <div aria-label="partie du formulaire concernant le nom">
+          <div aria-label="form-part-about-lastname">
 						<label for="lastname">Nom</label>
-						<input id="lastname" name="lastname" placeholder="Entrez votre nom ici" aria-labelledby="lastname" aria-describedby="lastname"/>
+						<input id="lastname" name="lastname" placeholder="Entrez votre nom ici" aria-labelledby="lastname" />
             <p class="error-message"></p>
 					</div>
-          <div aria-label="partie du formulaire concernant l'email">
+          <div aria-label="form-part-about-email">
 						<label for="email">Email</label>
-						<input id="email" name="email" placeholder="Entrez votre email ici" aria-labelledby="email" aria-describedby="email"/>
+						<input id="email" name="email" placeholder="Entrez votre email ici" aria-labelledby="email" />
             <p class="error-message" aria-label="message d'erreur"></p>
 					</div>
-          <div aria-label="partie du formulaire concernant le message">
+          <div aria-label="form-part-about-message">
 						<label for="message">Votre message</label>
-						<textarea id="message" name="message" placeholder="Entrez votre message ici" aria-labelledby="message" aria-describedby="message"></textarea>
+						<textarea id="message" name="message" placeholder="Entrez votre message ici" aria-labelledby="message" ></textarea>
             <p class="error-message" aria-label="message d'erreur"></p>
 					</div>
-          <button type="submit" class="contact_button" id="contact-button" >Envoyer</button>
+          <button type="submit" class="contact_button" id="contact-button" aria-label="Send" >Envoyer</button>
 				</form>
 			</div>
 		</div>
 
-    <div id="carousel_modal" aria-hidden="true" aria-label="écran du carrousel">
+    <div id="carousel_modal" aria-hidden="true" aria-label="écran du carrousel" aria-modal="true">
       <div class="carousel-lightbox-modal" aria-label="carrousel">
         <header class="carousel-header">
-          <h2>Galerie</h2>
-          <img src="assets/icons/close.svg" alt="close icon" onclick="closeLightBox()" />
+          <img src="assets/icons/close.svg" alt="close icon" onclick="closeLightBox()" role="button" aria-label="Close dialog" />
         </header>
      
-        <div class="carousel-slides-box" aria-label="les photos et vidéos de l'artiste avec les flèches directionnelles ">
+        <div class="carousel-slides-box" aria-label="big-slides-box">
 
-          <div class="arrow-left-div" aria-label="flèche de gauche"><i class="fas fa-arrow-left" aria-label="left arrow"></i></div>
+          <div class="arrow-left-div" aria-label="show-previous-media"><i class="fas fa-arrow-left" role="link" aria-label="Previous image"></i></div>
 
 
-          <div class="carousel-media-div" aria-label="les photos et videos de l'artiste">
+          <div class="carousel-media-div" role="slider" aria-label="slides-screen">
 
           </div>
       
 
-          <div class="arrow-right-div" aria-label="flèche de droite"><i class="fas fa-arrow-right" aria-label="right arrow"></i></div>
+          <div class="arrow-right-div" aria-label="show-next-media"><i class="fas fa-arrow-right" role="link" aria-label="Next image"></i></div>
         </div>
       </div>
     </div>

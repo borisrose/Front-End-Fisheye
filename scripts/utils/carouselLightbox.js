@@ -1,5 +1,48 @@
+document.addEventListener('DOMContentLoaded', ()=> {
+
+    const carouselModal = document.querySelector('#carousel_modal');
+    document.addEventListener('keydown', e=> {
+
+        if(carouselModal.getAttribute('aria-hidden') == 'false' && e.code == 'Escape'){
+
+       
+            closeLightBox()
+        }
+    })
+
+})
+
+
+
+function closeLightBox() {
+    const carouselModal = document.getElementById("carousel_modal");
+ 
+    const main = document.getElementById('main');
+
+    //handling accessibility issues
+    carouselModal.setAttribute('aria-hidden', true);
+    main.setAttribute('aria-hidden', false);
+
+
+    carouselModal.style.display = "none";
+    const mediaDiv = document.querySelector('.carousel-media-div');
+    mediaDiv.innerHTML = "";
+    const rightArrow = document.querySelector('.fa-arrow-right');
+    const leftArrow = document.querySelector('.fa-arrow-left');
+    leftArrow.onclick="";
+    rightArrow.onclick="";
+
+   
+}
+
+
+
+
 
 async function displayLightBox(photographerMedia, media, author){
+
+    let updatedListener = false
+
     const carouselModal = document.querySelector('#carousel_modal');
   
     const main = document.getElementById('main');
@@ -8,6 +51,7 @@ async function displayLightBox(photographerMedia, media, author){
     carouselModal.setAttribute('aria-hidden', false);
     main.setAttribute('aria-hidden', true);
     carouselModal.setAttribute('role', 'dialog');
+    carouselModal.setAttribute('aria-label', 'image closeup view');
 
 
     const mediaDiv = document.querySelector('.carousel-media-div');
@@ -43,22 +87,29 @@ async function displayLightBox(photographerMedia, media, author){
 
         const image = document.createElement('img');
         image.setAttribute('src', picture);
+        image.setAttribute('alt', media.title)
         imageMediaDiv.append(image);
         image.classList.add('img-slide');
+        image.setAttribute("aria-labelledby", 'description')
+        image.setAttribute("aria-describedby", 'description')
+    
     }
     else {
       
         const video = document.createElement('video');
         let videoSrc = `assets/${authorFirstname}/${media.video}`;
         video.setAttribute('src', videoSrc);
+        video.setAttribute('controls','');
         imageMediaDiv.append(video);
         video.classList.add('video-slide');
+        video.setAttribute("aria-labelledby", 'description')
+        video.setAttribute("aria-describedby", 'description')
     }
 
 
     const infoMediaDiv = document.createElement('div');
     infoMediaDiv.classList.add('info-media-div');
-    infoMediaDiv.innerHTML = '<p>'+media.title+'</p>';
+    infoMediaDiv.innerHTML = "<p id='description'>"+media.title+"</p>";
 
 
 
@@ -74,6 +125,7 @@ async function displayLightBox(photographerMedia, media, author){
 
     function arrowCallBack(direction, currentIndex, media, medias) {
 
+        pressed = true
         const imageMediaDiv = document.querySelector('.image-media-div');
         const infoMediaDiv = document.querySelector('.info-media-div')
         const elementType = media.image ? document.querySelector('.img-slide') : document.querySelector('.video-slide');
@@ -82,9 +134,14 @@ async function displayLightBox(photographerMedia, media, author){
 
 
             if(newType === currentType){
-                elementType.removeAttribute('src');
                 elementType.setAttribute('src', urlPath(src));
+
+                if(newType === 'img'){
+                    elementType.setAttribute('alt', text)
+                }
             }
+
+            
 
             if(newType !== currentType){
 
@@ -92,17 +149,21 @@ async function displayLightBox(photographerMedia, media, author){
                 let newElement = document.createElement(newType);
                 if(newType === 'img'){
                     newElement.classList.add('img-slide');
+                    newElement.setAttribute('alt', text)
                 }
                 else {
                     newElement.classList.add('video-slide');
+                    newElement.setAttribute('controls','');
                 }
+                newElement.setAttribute("aria-describedby", 'description')
+                newElement.setAttribute("aria-labelledby", 'description')
                 newElement.setAttribute('src', urlPath(src));
 
                 imageMediaDiv.appendChild(newElement);
         
             }
             
-            infoMediaDiv.innerHTML = '<p>'+text+'</p>';
+            infoMediaDiv.innerHTML = "<p id='description'>"+text+"</p>";
       
 
 
@@ -112,6 +173,21 @@ async function displayLightBox(photographerMedia, media, author){
            
             leftArrow.onclick = function(){arrowCallBack('left', newCurrentIndex, medias[newCurrentIndex], medias)};
             rightArrow.onclick = function(){arrowCallBack('right', newCurrentIndex, medias[newCurrentIndex], medias)};
+
+            //update keydown
+            document.onkeydown = function(e){ e.code === 'ArrowLeft' ? arrowCallBack('left', newCurrentIndex, medias[newCurrentIndex], medias ) 
+                                                             : e.code === 'ArrowRight' ? arrowCallBack('right', newCurrentIndex, medias[newCurrentIndex], medias) 
+                                                             : '' }
+
+
+
+    
+ 
+
+            
+
+           
+
         }
 
         if(direction === 'left'){
@@ -256,29 +332,28 @@ async function displayLightBox(photographerMedia, media, author){
     rightArrow.onclick = function(){arrowCallBack('right', currentIndex, media, photographerMedia)};
     
 
+    document.onkeydown = function(e){ e.code === 'ArrowLeft' ? arrowCallBack('left', currentIndex, media, photographerMedia) 
+                                                             : e.code === 'ArrowRight' ? arrowCallBack('right', currentIndex, media, photographerMedia) 
+                                                             : '' }
 
 
 
-
-}
-
-function closeLightBox() {
-    const carouselModal = document.getElementById("carousel_modal");
+    
  
-    const main = document.getElementById('main');
-
-    //handling accessibility issues
-    carouselModal.setAttribute('aria-hidden', true);
-    main.setAttribute('aria-hidden', false);
+       
 
 
-    carouselModal.style.display = "none";
-    const mediaDiv = document.querySelector('.carousel-media-div');
-    mediaDiv.innerHTML = "";
-    const rightArrow = document.querySelector('.fa-arrow-right');
-    const leftArrow = document.querySelector('.fa-arrow-left');
-    leftArrow.onclick="";
-    rightArrow.onclick="";
-
+    
    
+
+
+        
+  
+    
+    
+    
+
+
 }
+
+

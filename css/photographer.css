@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+
+.close-btn-span:focus {
+    border: solid black 2px;
+}
 .carousel-img {
 
     object-fit: cover;
@@ -189,6 +193,7 @@
     height: 20%;
 
     display: flex;
+    justify-content: flex-end;  
 }
 
 .info-media-div {
@@ -219,18 +224,14 @@
     padding-left: 30px;
 }
 
-.carousel-header img{
-    width: 10%;
-   
-}
 
 .carousel-header img {
     height: 20%;
-
+    width: 10%;
 }
 
 .carousel-slides-box {
-    height: 80%;
+    height: 90%;
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -264,16 +265,19 @@
     display: none;
     position: fixed;
     z-index: 2;
-    top: 0;
+    top:20%;
 
 
     width: 100%;
     align-items: center;
     justify-content: center;
-    height:100%;
+    
 }
 
-
+#contact_modal h1 {
+    color: black;
+ 
+}
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
