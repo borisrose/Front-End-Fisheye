@@ -1,6 +1,6 @@
 function mediaFactory(photographerMedia, media, author) {
   
-    authorFirstname = author.name.split(' ')[0];
+   let authorFirstname = author.name.split(' ')[0];
     if(Array.from(authorFirstname).find(l => l === '-')){
         authorFirstname = authorFirstname.split('-').join(' ');
     }
@@ -39,6 +39,7 @@ function mediaFactory(photographerMedia, media, author) {
         const mediaArticle = document.createElement('article');
         mediaArticle.classList.add('media-article')
         
+        
         //wai-aria
         mediaArticle.setAttribute('aria-label', 'media-article')
         mediaArticle.setAttribute('role', 'article')
@@ -46,6 +47,7 @@ function mediaFactory(photographerMedia, media, author) {
         //
         if(media.image){
             const mediaArticleImgDiv = document.createElement('div');
+            mediaArticleImgDiv.setAttribute('tabindex', 0);
             mediaArticleImgDiv.classList.add('media-article-img-div');
             const mediaArticleImg = document.createElement('img');
             mediaArticleImg.classList.add('media-article-img');
@@ -61,14 +63,26 @@ function mediaFactory(photographerMedia, media, author) {
             
        
             mediaArticleImgDiv.addEventListener('click', ()=> {
-                console.log('event click');
+             
                 displayLightBox(photographerMedia,media, author);
             })
+
+            mediaArticleImgDiv.onkeydown = (e) => {
+
+                if(e.code === 'Enter'){
+
+                    displayLightBox(photographerMedia,media, author);
+                }
+           
+            }
+
+            
 
         }
         else {
             const mediaArticleVideoDiv = document.createElement('div');
             mediaArticleVideoDiv.classList.add('media-article-video-div');
+            mediaArticleVideoDiv.setAttribute('tabindex', 0)
             const mediaArticleVideo = document.createElement('video');
             mediaArticleVideo.classList.add('media-article-video');
             mediaArticleVideo.src = `assets/${authorFirstname}/${media.video}`;
@@ -82,9 +96,17 @@ function mediaFactory(photographerMedia, media, author) {
             mediaArticleVideoDiv.appendChild(mediaArticleVideo);
 
             mediaArticleVideoDiv.addEventListener('click', ()=> {
-                console.log('event click');
+    
                 displayLightBox(photographerMedia,media, author);
             })
+
+            mediaArticleVideoDiv.onkeydown = (e) => {
+
+                if(e.code === 'Enter'){
+                    displayLightBox(photographerMedia,media, author);
+                }
+              
+            }
         }
        
         //

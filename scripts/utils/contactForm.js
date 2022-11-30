@@ -1,3 +1,7 @@
+const contactButton = document.getElementById('contact-button');
+console.log('contact', contactButton);
+
+
 document.addEventListener('DOMContentLoaded', ()=> {
 
     const modal = document.getElementById("contact_modal");
@@ -78,7 +82,7 @@ function displayModal() {
             if(isAllowed === true){
                 console.log('isAllowed === true');
                 modalForm.addEventListener('submit', (e)=> {
-                    
+                
                     e.preventDefault();
                     console.log({
                         prenom: inputsArray[0].domEl.value,
@@ -90,6 +94,26 @@ function displayModal() {
                    
 
                 })
+
+                console.log("contactButton", contactButton);
+                contactButton.onkeydown = (e) => {
+                    
+                    if(e.code === 'Enter') {
+                        
+                        console.log({
+                            prenom: inputsArray[0].domEl.value,
+                            nom: inputsArray[1].domEl.value,
+                            email: inputsArray[2].domEl.value,
+                            message: inputsArray[3].domEl.value,
+    
+                        })
+
+                       
+                    }
+
+                }
+
+
             }
         
 
@@ -155,10 +179,7 @@ function displayModal() {
 
     const instancesToCheck = () => {
 
-    let firstname;
-    let lastname;
-    let email;
-    let message;  
+
 
     return ({
 
@@ -197,7 +218,7 @@ function displayModal() {
 
     const {firstname, lastname, email, message } = instancesToCheck();
 
-    inputsArray = [firstname, lastname, email, message];
+    const inputsArray = [firstname, lastname, email, message];
 
     for(let input of inputsArray){
    
