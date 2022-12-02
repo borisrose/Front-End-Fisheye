@@ -39,7 +39,7 @@
 			<div class="modal" aria-label="contact-form">
 				<header class="contact-header">
           <h1 id="heading">Contactez-moi</h1>
-          <span class="close-btn-span"  role="button" aria-label="Close Contact form" aria-roledescription="Close Contact form">
+          <span class="close-btn-span"  aria-label="Close Contact form" aria-roledescription="Close Contact form">
             <img class="close-btn-span" src="assets/icons/close.svg" alt="close icon" onclick="closeModal()" role="button" />
           </span>
          
@@ -49,7 +49,7 @@
 						<label for="firstname">Prénom</label>
 						<input id="firstname" name="firstame" placeholder="Entrez votre prénom ici" aria-labelledby="firstname" />
             <p class="error-message" aria-label="message d'erreur"></p>
-					</div aria-label="partie du formulaire concernant le nom">
+					</div>
           <div aria-label="form-part-about-lastname">
 						<label for="lastname">Nom</label>
 						<input id="lastname" name="lastname" placeholder="Entrez votre nom ici" aria-labelledby="lastname" />
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 
-    <div id="carousel_modal" aria-hidden="true" aria-label="écran du carrousel" aria-modal="true">
+    <div id="carousel_modal" aria-hidden="true" aria-label="écran du carrousel" aria-modal="true" role="dialog">
       <div class="carousel-lightbox-modal" aria-label="carrousel">
         <header class="carousel-header">
           <img src="assets/icons/close.svg" alt="close icon" onclick="closeLightBox()" role="button" aria-label="Close dialog" />
@@ -81,7 +81,7 @@
           <div class="arrow-left-div" aria-label="show-previous-media"><i class="fas fa-arrow-left" role="link" aria-label="Previous image"></i></div>
 
 
-          <div class="carousel-media-div" role="slider" aria-label="slides-screen">
+          <div class="carousel-media-div"  aria-label="slides-screen">
 
           </div>
       
